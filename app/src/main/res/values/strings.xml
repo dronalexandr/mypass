@@ -4,4 +4,5 @@
     <string name="configuration">Configuration</string>
     <string name="add">Add</string>
     <string name="list">List</string>
+    <string name="password_manager">Password Manager</string>
 </resources>
