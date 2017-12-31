@@ -17,9 +17,15 @@
     <string name="save">Close/Save</string>
     <string name="remove">Remove</string>
     <string name="cancel">CANCEL</string>
-    <string name="resource_name">Resource Name</string>
+    <string name="resource_name"> Enter Resource Name</string>
     <string name="name">Name</string>
     <string name="no_records">No Records</string>
     <string name="group">Group</string>
-    <string name="enter_group">enter group</string>
+    <string name="enter_group">Enter Group</string>
+    <string name="site">Site</string>
+    <string name="site_name">Enter Site Name</string>
+    <string name="user_name">User Name</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter Password</string>
 </resources>

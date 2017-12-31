@@ -212,7 +212,7 @@ public class ViewRecordFragment extends Fragment {
         record.setDate(System.currentTimeMillis());
         record.setSite("site");
         record.setImage((String) imageView.getTag());
-        recordsDBHelper.addRecord(record);
+        recordsDBHelper.putRecord(record);
         if (mListener != null) {
             mListener.saveClick();
         }

@@ -93,7 +93,7 @@ public class RecordListFragment extends Fragment {
                     .setAction("YES", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            new RecordsDBHelper(getActivity()).addRecord(record);
+                            new RecordsDBHelper(getActivity()).putRecord(record);
                             adapter.addItem(adapterPosition, record);
                             getView().findViewById(R.id.empty_message).setVisibility(View.GONE);
                         }

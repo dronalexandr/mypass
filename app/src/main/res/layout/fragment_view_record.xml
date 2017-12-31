@@ -2,13 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.vegasoft.mypasswords.presentation.ViewRecordsActivity$PlaceholderFragment">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="com.vegasoft.mypasswords.presentation.ViewRecordsActivity$PlaceholderFragment">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/save_button"
@@ -16,15 +15,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_editText"
+            android:layout_marginRight="8dp" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -40,7 +40,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/resource_name"
-            android:textSize="21sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -67,14 +67,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/group"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
             android:id="@+id/group_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:ems="10"
@@ -83,5 +83,76 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group_textView" />
+
+        <TextView
+            android:id="@+id/site_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/site"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/group_editText"
+            android:layout_marginLeft="8dp" />
+
+        <EditText
+            android:id="@+id/site_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="@string/site_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/site_textView" />
+
+        <TextView
+            android:id="@+id/user_textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:text="@string/user_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/site_editText"
+            android:layout_marginLeft="8dp" />
+
+        <EditText
+            android:id="@+id/user_editText"
+            android:layout_width="0dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="@string/enter_user_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_textView3" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:text="@string/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_editText"
+            android:layout_marginLeft="8dp" />
+
+        <EditText
+            android:id="@+id/password_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="@string/enter_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="TextFields" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

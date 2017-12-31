@@ -30,7 +30,7 @@ public class RecordsDBHelper extends BaseDBHelper {
         db.close();
     }
 
-    private void putRecord(Record record) {
+    public void putRecord(Record record) {
         SQLiteDatabase db = getWritableDatabase();
         if (recordExist(db, record.getId())) {
             updateRecord(db, record);
