@@ -23,17 +23,6 @@ public class RecordsDBHelper extends BaseDBHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    public boolean isEmpty() {
-        final String countQuery = "SELECT  * FROM " + TABLE_RECORD;
-        final SQLiteDatabase db = getReadableDatabase();
-        final Cursor cursor = db.rawQuery(countQuery, null);
-        final int count = cursor.getCount();
-        cursor.close();
-        db.close();
-        return count < 1;
-
-    }
-
     public void deleteRecord(long id) {
         final SQLiteDatabase db = getWritableDatabase();
         int delete = db.delete(TABLE_RECORD, RECORD_ID + "=?", new String[]{String.valueOf(id)});
@@ -41,8 +30,16 @@ public class RecordsDBHelper extends BaseDBHelper {
         db.close();
     }
 
-    public void addRecord(Record record) {
+    private void putRecord(Record record) {
         SQLiteDatabase db = getWritableDatabase();
+        if (recordExist(db, record.getId())) {
+            updateRecord(db, record);
+        } else {
+            addRecord(db, record);
+        }
+    }
+
+    private void addRecord(SQLiteDatabase db, Record record) {
         ContentValues values = new ContentValues();
         values.put(RECORD_ID, record.getId());
         values.put(RECORD_NAME, record.getName());
@@ -56,8 +53,7 @@ public class RecordsDBHelper extends BaseDBHelper {
         db.close();
     }
 
-    public int updateRecord(Record record) {
-        SQLiteDatabase db = getWritableDatabase();
+    private void updateRecord(SQLiteDatabase db, Record record) {
         ContentValues values = new ContentValues();
         values.put(RECORD_NAME, record.getName());
         values.put(RECORD_DATE, record.getDate());
@@ -66,10 +62,20 @@ public class RecordsDBHelper extends BaseDBHelper {
         values.put(RECORD_USER, record.getUser());
         values.put(RECORD_PASS, record.getPass());
         values.put(RECORD_IMAGE, record.getImage());
-        int count = db.update(TABLE_RECORD, values, RECORD_ID + " = ?",
+        db.update(TABLE_RECORD, values, RECORD_ID + " = ?",
                 new String[]{record.getId().toString()});
         db.close();
-        return count;
+    }
+
+    private boolean recordExist(SQLiteDatabase db, Long id) {
+        String Query = "Select * from " + TABLE_RECORD + " where " + RECORD_ID + " = " + id + " ;";
+        Cursor cursor = db.rawQuery(Query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 
     public ArrayList<Record> getRecords() {

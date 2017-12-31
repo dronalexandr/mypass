@@ -7,12 +7,12 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     android:layout_marginBottom="4dp"
-    android:background="?android:attr/selectableItemBackground"
     >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         >
 
         <ImageView
