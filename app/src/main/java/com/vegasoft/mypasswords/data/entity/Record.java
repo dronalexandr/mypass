@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Record implements Serializable{
 
-    private Long id = System.currentTimeMillis();
+    private Long id;
     private String name;
     private Long date;
     private String group;

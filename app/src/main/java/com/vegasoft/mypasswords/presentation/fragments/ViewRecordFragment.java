@@ -13,10 +13,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -44,6 +47,11 @@ public class ViewRecordFragment extends Fragment {
     private Record mRecord;
 
     private ImageView imageView;
+    private EditText nameEditText;
+    private EditText groupEditText;
+    private EditText siteEditText;
+    private EditText userEditText;
+    private EditText passEditText;
 
     public ViewRecordFragment() {
     }
@@ -69,15 +77,28 @@ public class ViewRecordFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_record, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        imageView = view.findViewById(R.id.imageView);
+        nameEditText = view.findViewById(R.id.name_editText);
+        groupEditText = view.findViewById(R.id.group_editText);
+        siteEditText = view.findViewById(R.id.site_editText);
+        userEditText = view.findViewById(R.id.user_editText);
+        passEditText = view.findViewById(R.id.password_editText);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPictureChooser();
+            }
+        });
+        view.findViewById(R.id.save_button).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,16 +106,37 @@ public class ViewRecordFragment extends Fragment {
             }
         });
 
-        if (!TextUtils.isEmpty(mRecord.getImage())) {
-            Picasso.with(getActivity()).load(new File(mRecord.getImage())).into(imageView);
+        final String image = mRecord.getImage();
+        if (!TextUtils.isEmpty(image)) {
+            imageView.setTag(image);
+            Picasso.with(getActivity()).load(new File(image)).into(imageView);
         }
-        imageView = view.findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPictureChooser();
-            }
-        });
+        final String name = mRecord.getName();
+        if (!TextUtils.isEmpty(name)) {
+            nameEditText.setText(name);
+        }
+        final String group = mRecord.getGroup();
+        if (!TextUtils.isEmpty(group)) {
+            groupEditText.setText(group);
+        }
+        final String site = mRecord.getSite();
+        if (!TextUtils.isEmpty(site)) {
+            siteEditText.setText(site);
+        }
+        final String user = mRecord.getUser();
+        if (!TextUtils.isEmpty(user)) {
+            userEditText.setText(user);
+        }
+        final String pass = mRecord.getPass();
+        if (!TextUtils.isEmpty(pass)) {
+            passEditText.setText(pass);
+        }
+
+        nameEditText.addTextChangedListener(new MyWatcher(name));
+        groupEditText.addTextChangedListener(new MyWatcher(group));
+        siteEditText.addTextChangedListener(new MyWatcher(site));
+        userEditText.addTextChangedListener(new MyWatcher(user));
+        passEditText.addTextChangedListener(new MyWatcher(pass));
     }
 
     @Override
@@ -120,18 +162,23 @@ public class ViewRecordFragment extends Fragment {
         if (Activity.RESULT_OK != resultCode)
             return;
         final Uri data;
+        final View view = getView();
         switch (requestCode) {
             case ACTION_PHOTO:
                 data = imageReturnedIntent.getData();
                 if (data != null) {
                     processPhoto(data);
                 }
+                if (view != null)
+                    view.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
                 break;
             case ACTION_GALLERY:
                 data = imageReturnedIntent.getData();
                 if (data != null) {
                     processPhoto(data);
                 }
+                if (view != null)
+                    view.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -169,6 +216,9 @@ public class ViewRecordFragment extends Fragment {
     }
 
     private void showPictureChooser() {
+        if (getActivity() == null) {
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Image");
         builder.setItems(new CharSequence[]{"Gallery", "Camera"},
@@ -207,14 +257,51 @@ public class ViewRecordFragment extends Fragment {
 
     private void save() {
         RecordsDBHelper recordsDBHelper = new RecordsDBHelper(getActivity());
-        Record record = new Record();
-        record.setName("name " + System.currentTimeMillis());
-        record.setDate(System.currentTimeMillis());
-        record.setSite("site");
-        record.setImage((String) imageView.getTag());
-        recordsDBHelper.putRecord(record);
+        mRecord.setName(nameEditText.getText().toString());
+        mRecord.setGroup(groupEditText.getText().toString());
+        mRecord.setDate(System.currentTimeMillis());
+        mRecord.setSite(siteEditText.getText().toString());
+        mRecord.setUser(userEditText.getText().toString());
+        mRecord.setPass(passEditText.getText().toString());
+        mRecord.setImage((String) imageView.getTag());
+        recordsDBHelper.putRecord(mRecord);
         if (mListener != null) {
             mListener.saveClick();
+        }
+    }
+
+    class MyWatcher implements TextWatcher {
+        private String initState;
+
+        MyWatcher(String initState) {
+            if (initState == null) {
+                this.initState = "";
+            } else {
+                this.initState = initState;
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            final View view = getView();
+            if (view == null) {
+                return;
+            }
+            if (initState.equals(editable.toString())) {
+                view.findViewById(R.id.save_button).setVisibility(View.GONE);
+            } else {
+                view.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
+            }
         }
     }
 

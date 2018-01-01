@@ -32,10 +32,19 @@ public class RecordsDBHelper extends BaseDBHelper {
 
     public void putRecord(Record record) {
         SQLiteDatabase db = getWritableDatabase();
-        if (recordExist(db, record.getId())) {
+        if (record.getId() != null) {
             updateRecord(db, record);
         } else {
+            record.setId(System.currentTimeMillis());
             addRecord(db, record);
+        }
+    }
+
+    public void putRecord(Record record, boolean isRestored) {
+        if (isRestored) {
+            addRecord(getWritableDatabase(), record);
+        } else {
+            putRecord(record);
         }
     }
 

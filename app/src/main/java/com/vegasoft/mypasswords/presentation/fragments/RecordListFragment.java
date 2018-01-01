@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -34,7 +33,7 @@ public class RecordListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private RecordAdapter adapter;
 
-    private LoaderManager.LoaderCallbacks<LoaderResult<ArrayList<Record>>> generalLoader = new LoaderManager.LoaderCallbacks<LoaderResult<ArrayList<Record>>>() {
+    private LoaderManager.LoaderCallbacks<LoaderResult<ArrayList<Record>>> loaderCallbacks = new LoaderManager.LoaderCallbacks<LoaderResult<ArrayList<Record>>>() {
 
         @Override
         public Loader<LoaderResult<ArrayList<Record>>> onCreateLoader(int arg0,
@@ -93,7 +92,7 @@ public class RecordListFragment extends Fragment {
                     .setAction("YES", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            new RecordsDBHelper(getActivity()).putRecord(record);
+                            new RecordsDBHelper(getActivity()).putRecord(record, true);
                             adapter.addItem(adapterPosition, record);
                             getView().findViewById(R.id.empty_message).setVisibility(View.GONE);
                         }
@@ -134,10 +133,10 @@ public class RecordListFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onStart() {
+        super.onStart();
         getLoaderManager().restartLoader(RECORD_LOADER_ID, null,
-                generalLoader).forceLoad();
+                loaderCallbacks).forceLoad();
     }
 
     @Override

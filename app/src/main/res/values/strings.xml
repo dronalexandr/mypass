@@ -8,15 +8,12 @@
     <string name="password_manager">Password Manager</string>
     <string name="n_a">N/A</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_records">View Passwords</string>
     <string name="action_add">Add</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="home">Home</string>
-    <string name="save">Close/Save</string>
+    <string name="save">Save</string>
     <string name="remove">Remove</string>
-    <string name="cancel">CANCEL</string>
     <string name="resource_name"> Enter Resource Name</string>
     <string name="name">Name</string>
     <string name="no_records">No Records</string>
@@ -28,4 +25,5 @@
     <string name="enter_user_name">Enter User Name</string>
     <string name="password">Password</string>
     <string name="enter_password">Enter Password</string>
+    <string name="action_settings">Settings</string>
 </resources>

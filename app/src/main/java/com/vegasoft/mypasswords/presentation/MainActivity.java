@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.vegasoft.mypasswords.R;
 import com.vegasoft.mypasswords.data.entity.Record;
@@ -17,6 +20,9 @@ import com.vegasoft.mypasswords.presentation.fragments.SettingsFragment;
 import com.vegasoft.mypasswords.presentation.fragments.ViewRecordFragment;
 
 public class MainActivity extends AppCompatActivity implements OnListFragmentInteractionListener {
+
+    public static final int RESULT_VIEW_ACTIVITY = 888;
+    public static final int RESULT_CODE_ACTIVITY = 111;
 
     private android.support.v4.app.Fragment currentFragment;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -62,8 +68,39 @@ public class MainActivity extends AppCompatActivity implements OnListFragmentInt
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_VIEW_ACTIVITY) {
+            if (RESULT_CODE_ACTIVITY == resultCode) {
+                ((BottomNavigationView) findViewById(R.id.navigation)).setSelectedItemId(R.id.navigation_add);
+            }
+        }
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_pirates:
+                if (checked)
+                    Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+                    break;
+            case R.id.radio_ninjas:
+                if (checked)
+                    Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+                    break;
+        }
+    }
+
+    @Override
     public void onItemClick(Record item) {
-        startActivity(new Intent(this, ViewRecordsActivity.class));
+        Intent intent = new Intent(this, ViewRecordsActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable(ViewRecordsActivity.ARG_RECORD, item); //Your id
+        intent.putExtras(b);
+        startActivityForResult(intent, RESULT_VIEW_ACTIVITY);
     }
 
     @Override
