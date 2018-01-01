@@ -24,6 +24,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.vegasoft.mypasswords.R;
+import com.vegasoft.mypasswords.bussiness.ConfigManager;
 import com.vegasoft.mypasswords.data.db.RecordsDBHelper;
 import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.presentation.OnListFragmentInteractionListener;
@@ -126,6 +127,10 @@ public class ViewRecordFragment extends Fragment {
         final String user = mRecord.getUser();
         if (!TextUtils.isEmpty(user)) {
             userEditText.setText(user);
+        } else {
+            if (mRecord.getId() == null) {
+                userEditText.setText(new ConfigManager(getActivity()).getDefaultUser());
+            }
         }
         final String pass = mRecord.getPass();
         if (!TextUtils.isEmpty(pass)) {

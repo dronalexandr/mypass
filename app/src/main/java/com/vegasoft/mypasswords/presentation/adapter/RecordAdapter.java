@@ -55,6 +55,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         holder.mItem = mValues.get(position);
         if (!TextUtils.isEmpty(holder.mItem.getName())) {
             holder.mNameView.setText(holder.mItem.getName());

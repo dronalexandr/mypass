@@ -13,9 +13,10 @@
             android:id="@+id/defaultUser_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Default UserName"
+            android:text="@string/default_username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +27,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:ems="10"
-            android:hint="Enter application default user"
+            android:hint="@string/enter_application_default_user"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
@@ -37,9 +38,10 @@
             android:id="@+id/appPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Application Password"
+            android:text="@string/application_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/defaultUser_editText" />
 
@@ -50,8 +52,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:ems="10"
-            android:hint="Enter application password"
-            android:inputType="textPersonName"
+            android:hint="@string/enter_application_password"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appPassword" />
@@ -60,29 +62,36 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Encryption"
             android:layout_marginBottom="25dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/encryption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_editText" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            >
-            <RadioButton android:id="@+id/radio_pirates"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+            <RadioButton
+                android:id="@+id/radio_rsa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RSA"
-                android:onClick="onRadioButtonClicked"/>
-            <RadioButton android:id="@+id/radio_ninjas"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/rsa"
+                tools:ignore="OnClick" />
+
+            <RadioButton
+                android:id="@+id/radio_aes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AES"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/aes"
+                tools:ignore="OnClick" />
         </RadioGroup>
     </android.support.constraint.ConstraintLayout>
 

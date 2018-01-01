@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.vegasoft.mypasswords.R;
+import com.vegasoft.mypasswords.bussiness.ConfigManager;
+import com.vegasoft.mypasswords.data.entity.Encryption;
 import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.presentation.fragments.RecordListFragment;
 import com.vegasoft.mypasswords.presentation.fragments.SettingsFragment;
@@ -80,16 +81,16 @@ public class MainActivity extends AppCompatActivity implements OnListFragmentInt
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
+        ConfigManager configManager = new ConfigManager(this);
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.radio_pirates:
+            case R.id.radio_rsa:
                 if (checked)
-                    Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+                    configManager.saveEncryption(Encryption.RSA);
                     break;
-            case R.id.radio_ninjas:
+            case R.id.radio_aes:
                 if (checked)
-                    Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+                    configManager.saveEncryption(Encryption.AES);
                     break;
         }
     }
