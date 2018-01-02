@@ -31,14 +31,14 @@
     <string name="enter_application_password">Enter application password</string>
     <string name="encryption">Encryption</string>
     <string name="rsa">RSA</string>
-    <string name="aes">AES</string>
+    <string name="aes">AES CBC PKCS#5 Padding</string>
     <string name="resource_name_label">Resource name</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Go To Secure Storage</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>

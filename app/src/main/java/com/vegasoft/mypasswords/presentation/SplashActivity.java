@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 } else {
                     finish();
@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                showExplanation("Please, enable permission!\nWe need permissions for using images!");
+                showExplanation();
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
@@ -56,15 +56,15 @@ public class SplashActivity extends AppCompatActivity {
                         REQUEST_WRITE_STORAGE);
             }
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
     }
 
-    private void showExplanation(String body) {
+    private void showExplanation() {
         new AlertDialog.Builder(this)
                 .setTitle("Request Permission")
-                .setMessage(body)
+                .setMessage("Please, enable permission!\nWe need permissions for using images!")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         checkPermission();

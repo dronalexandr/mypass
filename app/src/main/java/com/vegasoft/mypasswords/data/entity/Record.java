@@ -12,6 +12,15 @@ public class Record implements Serializable{
     private String user;
     private String pass;
     private String image;
+    private Encryption encryption = Encryption.AES;
+
+    public Encryption getEncryption() {
+        return encryption;
+    }
+
+    public void setEncryption(Encryption encryption) {
+        this.encryption = encryption;
+    }
 
     public Long getId() {
         return id;

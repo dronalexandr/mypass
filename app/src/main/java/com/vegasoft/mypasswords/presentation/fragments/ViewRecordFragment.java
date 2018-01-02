@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.vegasoft.mypasswords.R;
 import com.vegasoft.mypasswords.bussiness.ConfigManager;
+import com.vegasoft.mypasswords.bussiness.SecureManager;
 import com.vegasoft.mypasswords.data.db.RecordsDBHelper;
 import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.presentation.OnListFragmentInteractionListener;
@@ -53,6 +54,7 @@ public class ViewRecordFragment extends Fragment {
     private EditText siteEditText;
     private EditText userEditText;
     private EditText passEditText;
+    private ConfigManager configManager;
 
     public ViewRecordFragment() {
     }
@@ -63,6 +65,12 @@ public class ViewRecordFragment extends Fragment {
         bundle.putSerializable(ARG_RECORD, record);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        configManager = new ConfigManager(activity);
     }
 
     @Override
@@ -99,6 +107,7 @@ public class ViewRecordFragment extends Fragment {
                 showPictureChooser();
             }
         });
+
         view.findViewById(R.id.save_button).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +143,14 @@ public class ViewRecordFragment extends Fragment {
         }
         final String pass = mRecord.getPass();
         if (!TextUtils.isEmpty(pass)) {
-            passEditText.setText(pass);
+            switch (configManager.getEncryption()) {
+                case RSA:
+                    passEditText.setText(SecureManager.decryptRSA(pass));
+                    break;
+                case AES:
+                    passEditText.setText(SecureManager.decryptAES(pass));
+                    break;
+            }
         }
 
         nameEditText.addTextChangedListener(new MyWatcher(name));
@@ -267,7 +283,14 @@ public class ViewRecordFragment extends Fragment {
         mRecord.setDate(System.currentTimeMillis());
         mRecord.setSite(siteEditText.getText().toString());
         mRecord.setUser(userEditText.getText().toString());
-        mRecord.setPass(passEditText.getText().toString());
+        switch (configManager.getEncryption()) {
+            case RSA:
+                mRecord.setPass(SecureManager.encryptRSA(passEditText.getText().toString()));
+                break;
+            case AES:
+                mRecord.setPass(SecureManager.encryptAES(passEditText.getText().toString()));
+                break;
+        }
         mRecord.setImage((String) imageView.getTag());
         recordsDBHelper.putRecord(mRecord);
         if (mListener != null) {

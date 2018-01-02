@@ -19,11 +19,12 @@ class BaseDBHelper extends SQLiteOpenHelper {
     static final String RECORD_USER = "user";
     static final String RECORD_PASS = "pass";
     static final String RECORD_IMAGE = "image_path";
+    static final String RECORD_ENCRYPTION = "encryption";
 
     // All Static variables
     private static final String TAG = BaseDBHelper.class.getSimpleName();
     // Database Version
-    private static final int DATABASE_VERSION = 17;
+    private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "PreferenceCentral.db";
 
@@ -58,7 +59,8 @@ class BaseDBHelper extends SQLiteOpenHelper {
                 + RECORD_SITE + " TEXT, "
                 + RECORD_USER + " TEXT, "
                 + RECORD_PASS + " TEXT, "
-                + RECORD_IMAGE + " TEXT ) " );
+                + RECORD_IMAGE + " TEXT, "
+                + RECORD_ENCRYPTION + " INTEGER ) " );
         Log.d(TAG, "SQLiteDatabase onCreate(SQLiteDatabase db) "
                 + TABLE_RECORD);
     }
