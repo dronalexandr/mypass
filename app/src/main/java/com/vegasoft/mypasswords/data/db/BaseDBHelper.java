@@ -24,9 +24,9 @@ class BaseDBHelper extends SQLiteOpenHelper {
     // All Static variables
     private static final String TAG = BaseDBHelper.class.getSimpleName();
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
-    private static final String DATABASE_NAME = "PreferenceCentral.db";
+    private static final String DATABASE_NAME = "PSM.db";
 
     BaseDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -3,7 +3,6 @@ package com.vegasoft.mypasswords.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,11 +44,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-
         mPasswordView.setError(null);
 
         String password = mPasswordView.getText().toString();
-        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             return;
         }
