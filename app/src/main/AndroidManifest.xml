@@ -43,6 +43,10 @@
         <activity
             android:name=".presentation.LoginActivity"
             android:label="@string/title_activity_login"/>
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
     </application>
 
 </manifest>
