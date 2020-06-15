@@ -9,10 +9,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -31,6 +31,8 @@ import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.presentation.OnListFragmentInteractionListener;
 import com.vegasoft.mypasswords.presentation.ViewPhotoActivity;
 import com.vegasoft.mypasswords.utils.BitmapHelpers;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -68,7 +70,7 @@ public class ViewRecordFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NotNull Activity activity) {
         super.onAttach(activity);
         configManager = new ConfigManager(activity);
     }
@@ -119,7 +121,7 @@ public class ViewRecordFragment extends Fragment {
         final String image = mRecord.getImage();
         if (!TextUtils.isEmpty(image)) {
             imageView.setTag(image);
-            Picasso.with(getActivity()).load(new File(image)).into(imageView);
+            Picasso.get().load(new File(image)).into(imageView);
         }
         final String name = mRecord.getName();
         if (!TextUtils.isEmpty(name)) {
@@ -138,7 +140,7 @@ public class ViewRecordFragment extends Fragment {
             userEditText.setText(user);
         } else {
             if (mRecord.getId() == null) {
-                userEditText.setText(new ConfigManager(getActivity()).getDefaultUser());
+                userEditText.setText(new ConfigManager(requireActivity()).getDefaultUser());
             }
         }
         final String pass = mRecord.getPass();
@@ -161,7 +163,7 @@ public class ViewRecordFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
@@ -186,13 +188,6 @@ public class ViewRecordFragment extends Fragment {
         final View view = getView();
         switch (requestCode) {
             case ACTION_PHOTO:
-                data = imageReturnedIntent.getData();
-                if (data != null) {
-                    processPhoto(data);
-                }
-                if (view != null)
-                    view.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
-                break;
             case ACTION_GALLERY:
                 data = imageReturnedIntent.getData();
                 if (data != null) {
@@ -261,7 +256,7 @@ public class ViewRecordFragment extends Fragment {
                             case ACTION_PHOTO:
                                 // GET IMAGE FROM THE CAMERA
                                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                                if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
                                     startActivityForResult(takePictureIntent, ACTION_PHOTO);
                                 }
                                 break;

@@ -6,9 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextStyle">@style/App_EditTextStyle</item>
+        <item name="buttonStyle">@style/Widget.MaterialComponents.Button</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textAppearance">@style/TextLabel</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
+    <style name="FullscreenTheme" parent="AppTheme.NoActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
@@ -17,7 +22,6 @@
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -28,5 +32,32 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/app_bg</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="App_ButtonStyle" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/app_bg</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:capitalize">characters</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="TextLabelInput" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/secondaryText</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/primaryText</item>
+        <item name="colorControlNormal">@color/primaryText</item>
+        <item name="colorControlActivated">@color/primaryText</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/primaryText</item>
+    </style>
 
 </resources>

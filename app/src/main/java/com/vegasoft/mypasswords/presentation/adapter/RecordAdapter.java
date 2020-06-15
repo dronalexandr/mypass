@@ -1,6 +1,6 @@
 package com.vegasoft.mypasswords.presentation.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +64,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             holder.mSiteView.setText(holder.mItem.getSite());
         }
         if (!TextUtils.isEmpty(holder.mItem.getImage())) {
-            Picasso.with(holder.itemView.getContext()).load(new File(holder.mItem.getImage())).into(holder.mImageView);
+            Picasso.get().load(new File(holder.mItem.getImage())).into(holder.mImageView);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

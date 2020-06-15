@@ -15,5 +15,4 @@
         android:id="@+id/navigation_settings"
         android:icon="@android:drawable/ic_partial_secure"
         android:title="@string/configuration" />
-
 </menu>

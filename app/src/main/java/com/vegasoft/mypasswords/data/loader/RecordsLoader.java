@@ -1,7 +1,7 @@
 package com.vegasoft.mypasswords.data.loader;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.vegasoft.mypasswords.data.db.RecordsDBHelper;
 import com.vegasoft.mypasswords.data.entity.Record;

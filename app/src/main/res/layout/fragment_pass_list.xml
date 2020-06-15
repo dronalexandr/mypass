@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
-        <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+        <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/list"
             android:name="com.vegasoft.mypasswords.fragments.PassListFragment"
             android:layout_width="match_parent"
@@ -37,4 +37,4 @@
             tools:listitem="@layout/pass_item" />
     </FrameLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

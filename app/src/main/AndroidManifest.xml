@@ -39,7 +39,7 @@
             android:name=".presentation.ViewRecordsActivity"
             android:label="@string/title_activity_view_records"
             android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".presentation.LoginActivity"
             android:label="@string/title_activity_login"/>
