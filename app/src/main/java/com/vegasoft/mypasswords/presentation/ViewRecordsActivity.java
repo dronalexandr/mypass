@@ -10,11 +10,15 @@ import androidx.loader.content.Loader;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vegasoft.mypasswords.R;
+import com.vegasoft.mypasswords.data.db.RecordsDBHelper;
 import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.data.loader.LoaderResult;
 import com.vegasoft.mypasswords.data.loader.RecordsLoader;
@@ -113,6 +117,19 @@ public class ViewRecordsActivity extends AppCompatActivity implements OnListFrag
         getSupportLoaderManager().restartLoader(RECORD_LOADER_ID, null,
                 loaderCallbacks).forceLoad();
         Toast.makeText(this, "saved!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeClick(Record mRecord) {
+        try {
+            new RecordsDBHelper(this).deleteRecord(mRecord.getId());
+        } catch (Exception e){
+            FirebaseCrashlytics.getInstance().recordException(e);
+        } finally {
+            onBackPressed();
+        }
+
+
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

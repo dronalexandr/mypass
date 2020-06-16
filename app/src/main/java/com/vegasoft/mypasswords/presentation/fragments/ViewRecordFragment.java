@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -35,6 +36,7 @@ import com.vegasoft.mypasswords.utils.BitmapHelpers;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,10 +83,6 @@ public class ViewRecordFragment extends Fragment {
         if (getArguments() != null) {
             mRecord = (Record) getArguments().getSerializable(ARG_RECORD);
         }
-
-        if (mRecord == null) {
-            mRecord = new Record();
-        }
     }
 
     @Override
@@ -97,16 +95,31 @@ public class ViewRecordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         imageView = view.findViewById(R.id.imageView);
         nameEditText = view.findViewById(R.id.name_editText);
         groupEditText = view.findViewById(R.id.group_editText);
         siteEditText = view.findViewById(R.id.site_editText);
         userEditText = view.findViewById(R.id.user_editText);
         passEditText = view.findViewById(R.id.password_editText);
+        ImageButton removeButton = view.findViewById(R.id.delete_imageButton);
+        if (mRecord == null) {
+            mRecord = new Record();
+            removeButton.setVisibility(View.GONE);
+        } else {
+            removeButton.setVisibility(View.VISIBLE);
+        }
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPictureChooser();
+            }
+        });
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeItem();
             }
         });
 
@@ -290,6 +303,11 @@ public class ViewRecordFragment extends Fragment {
         recordsDBHelper.putRecord(mRecord);
         if (mListener != null) {
             mListener.saveClick();
+        }
+    }
+    private void removeItem() {
+        if (mListener != null) {
+            mListener.removeClick(mRecord);
         }
     }
 

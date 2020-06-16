@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         startActivityForResult(intent, RESULT_VIEW_ACTIVITY)
     }
 
+    override fun removeClick(mRecord: Record?) {
+
+    }
+
     override fun saveClick() {
         (findViewById<View>(R.id.navigation) as BottomNavigationView).selectedItemId = R.id.navigation_home
     }
