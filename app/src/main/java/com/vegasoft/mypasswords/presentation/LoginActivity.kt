@@ -3,13 +3,13 @@ package com.vegasoft.mypasswords.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
 import com.vegasoft.mypasswords.R
 import com.vegasoft.mypasswords.bussiness.ConfigManager
 import kotlinx.android.synthetic.main.activity_login.password as mPasswordView
+import kotlinx.android.synthetic.main.activity_login.email_sign_in_button
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,8 @@ class LoginActivity : AppCompatActivity() {
             false
         })
         actionBar?.hide()
-        findViewById<View>(R.id.email_sign_in_button).setOnClickListener { attemptLogin() }
-        if (isFirstStart()) {
+        email_sign_in_button.setOnClickListener { attemptLogin() }
+        if (isPswdSet()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
             return
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun isFirstStart() = TextUtils.isEmpty(ConfigManager(this).pswd)
+    private fun isPswdSet() = TextUtils.isEmpty(ConfigManager(this).pswd)
 
     private fun isPasswordCorrect(password: String) = ConfigManager(this).pswd == password
 

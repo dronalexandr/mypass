@@ -10,11 +10,12 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vegasoft.mypasswords.R
 import com.vegasoft.mypasswords.bussiness.ConfigManager
-import com.vegasoft.mypasswords.data.entity.Encryption
-import com.vegasoft.mypasswords.data.entity.Record
-import com.vegasoft.mypasswords.presentation.fragments.RecordListFragment
+import com.vegasoft.mypasswords.data.persistence.models.Encryption
+import com.vegasoft.mypasswords.presentation.fragments_new.records.list.RecordListFragment
 import com.vegasoft.mypasswords.presentation.fragments.SettingsFragment
-import com.vegasoft.mypasswords.presentation.fragments.ViewRecordFragment
+import com.vegasoft.mypasswords.presentation.fragments_new.records.view.ViewRecordFragment
+import com.vegasoft.mypasswords.presentation.ui_models.UIRecord
+import kotlinx.android.synthetic.main.activity_main.navigation
 
 class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
     private var currentFragment: Fragment? = null
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_home
     }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_VIEW_ACTIVITY) {
             if (RESULT_CODE_ACTIVITY == resultCode) {
-                (findViewById<View>(R.id.navigation) as BottomNavigationView).selectedItemId = R.id.navigation_add
+                navigation.selectedItemId = R.id.navigation_add
             }
         }
     }
@@ -75,20 +75,20 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         }
     }
 
-    override fun onItemClick(item: Record) {
+    override fun onItemClick(item: UIRecord) {
         val intent = Intent(this, ViewRecordsActivity::class.java)
         val b = Bundle()
-        b.putSerializable(ViewRecordsActivity.ARG_RECORD, item) //Your id
+        b.putParcelable(ViewRecordsActivity.ARG_RECORD, item) //Your id
         intent.putExtras(b)
         startActivityForResult(intent, RESULT_VIEW_ACTIVITY)
     }
 
-    override fun removeClick(mRecord: Record?) {
+    override fun removeClick(mRecord: UIRecord?) {
 
     }
 
     override fun saveClick() {
-        (findViewById<View>(R.id.navigation) as BottomNavigationView).selectedItemId = R.id.navigation_home
+        navigation.selectedItemId = R.id.navigation_home
     }
 
     private fun switchFragment(fragment: Fragment?) {

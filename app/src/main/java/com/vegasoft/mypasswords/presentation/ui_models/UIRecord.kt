@@ -4,4 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class UIRecord(var id: String,var name: String,var date: String,var group: String,var site: String,var user: String,var pass: String,var image: String) : Parcelable
+data class UIRecord(var id: String = "", var title: String = "", var securedData: SecuredData = SecuredData("", "", "", "", ""), var image: String = "", var userId: String = "") : Parcelable {
+    fun isEmoty() = title.isEmpty() && securedData.isEmpty() && image.isEmpty() && userId.isEmpty()
+    override fun toString(): String {
+        return "UIRecord(id='$id', title='$title', securedData=$securedData, image='$image', userId='$userId')"
+    }
+}

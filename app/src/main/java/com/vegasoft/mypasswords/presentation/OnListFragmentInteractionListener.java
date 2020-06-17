@@ -1,10 +1,10 @@
 package com.vegasoft.mypasswords.presentation;
 
-import com.vegasoft.mypasswords.data.entity.Record;
+import com.vegasoft.mypasswords.presentation.ui_models.UIRecord;
 
 public interface OnListFragmentInteractionListener {
-    void onItemClick(Record item);
+    void onItemClick(UIRecord item);
     void saveClick();
 
-    void removeClick(Record mRecord);
+    void removeClick(UIRecord mRecord);
 }

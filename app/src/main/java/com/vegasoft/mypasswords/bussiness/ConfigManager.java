@@ -3,7 +3,7 @@ package com.vegasoft.mypasswords.bussiness;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.vegasoft.mypasswords.data.entity.Encryption;
+import com.vegasoft.mypasswords.data.persistence.models.Encryption;
 
 public class ConfigManager {
     private SharedPreferences sharedPref;

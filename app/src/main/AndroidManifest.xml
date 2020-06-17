@@ -39,6 +39,7 @@
             android:name=".presentation.ViewRecordsActivity"
             android:label="@string/title_activity_view_records"
             android:noHistory="true"
+            android:windowSoftInputMode="adjustPan|adjustResize"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".presentation.LoginActivity"

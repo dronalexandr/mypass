@@ -12,8 +12,8 @@ data class Record(@PrimaryKey
                   val userId: String,
                   @ColumnInfo(name = "data")
                   val data: String,
-                  @ColumnInfo(name = "nickname")
-                  val nickname: String,
+                  @ColumnInfo(name = "title")
+                  val title: String,
                   @ColumnInfo(name = "image")
                   val image: String
 )

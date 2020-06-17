@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import com.vegasoft.mypasswords.R;
 import com.vegasoft.mypasswords.bussiness.ConfigManager;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SettingsFragment extends Fragment {
 
     private ConfigManager configManager;
@@ -31,7 +33,7 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         configManager = new ConfigManager(context);
     }

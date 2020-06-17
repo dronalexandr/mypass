@@ -1,6 +1,7 @@
 package com.vegasoft.mypasswords.presentation.adapter;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.vegasoft.mypasswords.R;
-import com.vegasoft.mypasswords.data.entity.Record;
 import com.vegasoft.mypasswords.presentation.OnListFragmentInteractionListener;
+import com.vegasoft.mypasswords.presentation.ui_models.UIRecord;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
 
-    private List<Record> mValues;
+    private List<UIRecord> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public RecordAdapter(OnListFragmentInteractionListener listener) {
@@ -27,9 +30,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         mValues = new ArrayList<>();
     }
 
-    public void setItems(List<Record> items) {
+    public void setItems(List<UIRecord> items) {
         mValues = new ArrayList<>(items);
         notifyDataSetChanged();
+    }
+
+    public boolean isEmpty() {
+        return mValues.isEmpty();
     }
 
     public void removeItem(int position) {
@@ -37,15 +44,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void addItem(int position, Record record) {
+    public void addItem(int position, UIRecord record) {
         mValues.add(position, record);
         notifyItemInserted(position);
     }
 
-    public Record getRecord(int position) {
+    public UIRecord getRecord(int position) {
         return mValues.get(position);
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -57,11 +65,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         holder.mItem = mValues.get(position);
-        if (!TextUtils.isEmpty(holder.mItem.getName())) {
-            holder.mNameView.setText(holder.mItem.getName());
+        if (!TextUtils.isEmpty(holder.mItem.getTitle())) {
+            holder.mNameView.setText(holder.mItem.getTitle());
         }
-        if (!TextUtils.isEmpty(holder.mItem.getSite())) {
-            holder.mSiteView.setText(holder.mItem.getSite());
+        if (!TextUtils.isEmpty(holder.mItem.getSecuredData().getSite())) {
+            holder.mSiteView.setText(holder.mItem.getSecuredData().getSite());
         }
         if (!TextUtils.isEmpty(holder.mItem.getImage())) {
             Picasso.get().load(new File(holder.mItem.getImage())).into(holder.mImageView);
@@ -85,7 +93,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         final TextView mNameView;
         final TextView mSiteView;
         final ImageView mImageView;
-        Record mItem;
+        UIRecord mItem;
 
         ViewHolder(View view) {
             super(view);
